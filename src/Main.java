@@ -4,16 +4,16 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Enter Student ID: ");
+        System.out.print("Enter number 1: ");
         String studentId = input.nextLine();
 
-        System.out.print("Enter First Name: ");
+        System.out.print("Enter number 2: ");
         String firstName = input.nextLine();
 
-        System.out.print("Enter Last Name: ");
+        System.out.print("Enter number 3: ");
         String lastName = input.nextLine();
 
-        System.out.print("Enter Course: ");
+        System.out.print("Enter number 4: ");
         String course = input.nextLine();
 
         System.out.print("Enter Section: ");
