@@ -17,15 +17,12 @@ public class Main {
         Order o4 = new Order("Charlie Brown");
         addItemToOrder(o4, "", 4.00);  // Invalid item (empty string)
 
-        // Valid order for Emma Watson (Large order)
         Order o5 = new Order("Emma Watson");
         addMultipleItemsToOrder(o5, new String[]{"Pizza", "Coke", "Burger", "Fries", "Ice Cream", "Water"}, 12.99, 1.50, 8.00, 3.25, 5.00, 1.00);
 
-        // Invalid order with item count mismatch
         Order o6 = new Order("Bob Smith");
         addMultipleItemsToOrder(o6, new String[]{"Taco", "Soda"}, 10.00);  // Price count mismatch
 
-        // Valid order for Grace Miller (Small order)
         Order o7 = new Order("Charlie Brown");
         addMultipleItemsToOrder(o7, new String[]{"Taco", "Juice"}, 14.50, 2.50);
 
@@ -44,7 +41,6 @@ public class Main {
 
         System.out.println("\nTotal orders created: " + Order.getTotalOrders());
 
-        // Find the largest order
         Order largest = o1;
         if (o2.getTotalAmount() > largest.getTotalAmount()) largest = o2;
         if (o3.getTotalAmount() > largest.getTotalAmount()) largest = o3;
@@ -58,7 +54,6 @@ public class Main {
                 String.format("%.2f", largest.getTotalAmount()) + ")");
     }
 
-    // Helper method to add a single item to an order and handle exceptions
     private static void addItemToOrder(Order order, String item, double price) {
         try {
             order.addItem(item, price);
@@ -68,7 +63,6 @@ public class Main {
         }
     }
 
-    // Helper method to add multiple items to an order and handle exceptions
     private static void addMultipleItemsToOrder(Order order, String[] items, double... prices) {
         try {
             order.addMultipleItems(items, prices);
