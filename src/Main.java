@@ -1,40 +1,80 @@
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
-        PostManager postManager = new PostManager();
+        System.out.println("═══ Food Ordering System ═══");
+        System.out.println("\nCreating orders and adding items...");
 
-        // Sample data
-        String postTitle = "Java Programming Tips";
-        int[] interactions = {150, 75, 25}; // likes, comments, shares
-        String[] hashtags = {"#java", "#coding", "#programming", "#java", "#tips"};
-        String[] authors = {"Alice", "Bob", "Alice", "Charlie", "Bob"};
+        Order o1 = new Order("Alice Johnson");
+        addItemToOrder(o1, "Pizza", 12.99);
+        addItemToOrder(o1, "Burger", 8.50);
+        addItemToOrder(o1, "Fries", 3.25);
 
-        // Calculate engagement score
-        int engagementScore = postManager.calculateEngagement(interactions);
-        String category = postManager.getCategoryRating(engagementScore);
+        Order o2 = new Order("Bob Smith");
+        addItemToOrder(o2, "Sandwich", -6.25);  // Invalid price
 
-        // Display post stats
-        System.out.println("╔═══════════════════════════ Social Media Post Manager ═════════════════════════════╗");
-        postManager.displayPostStats(postTitle, engagementScore, category);
+        Order o3 = new Order("Bob Smith");
+        addMultipleItemsToOrder(o3, new String[]{"Soup", "Salad", "Juice"}, 5.50, 3.00, 2.50);
 
-        // Manage hashtags
-        ArrayList<String> uniqueHashtags = postManager.manageHashtags(hashtags);
-        System.out.println("\nUnique Hashtags: " + uniqueHashtags);
+        Order o4 = new Order("Charlie Brown");
+        addItemToOrder(o4, "", 4.00);  // Invalid item (empty string)
 
-        // Sample post engagement data
-        HashMap<String, Integer> postEngagement = new HashMap<>();
-        postEngagement.put(postTitle, engagementScore);
-        postEngagement.put("Advanced Java Tutorial", 600);
-        postEngagement.put("Spring Boot Guide", 700);
+        // Valid order for Emma Watson (Large order)
+        Order o5 = new Order("Emma Watson");
+        addMultipleItemsToOrder(o5, new String[]{"Pizza", "Coke", "Burger", "Fries", "Ice Cream", "Water"}, 12.99, 1.50, 8.00, 3.25, 5.00, 1.00);
 
-        // Find trending posts
-        ArrayList<String> posts = new ArrayList<>(postEngagement.keySet());
-        LinkedList<String> trendingPosts = postManager.findTrendingPosts(posts, postEngagement);
-        System.out.println("Trending Posts: " + trendingPosts);
+        // Invalid order with item count mismatch
+        Order o6 = new Order("Bob Smith");
+        addMultipleItemsToOrder(o6, new String[]{"Taco", "Soda"}, 10.00);  // Price count mismatch
 
-        // Get unique authors
-        HashSet<String> uniqueAuthors = postManager.getUniqueAuthors(authors);
-        System.out.println("Unique Authors: " + uniqueAuthors);
+        // Valid order for Grace Miller (Small order)
+        Order o7 = new Order("Charlie Brown");
+        addMultipleItemsToOrder(o7, new String[]{"Taco", "Juice"}, 14.50, 2.50);
+
+        Order o8 = new Order("Alice Johnson");
+        addItemToOrder(o8, "Cake", 3.99);  // This shouldn't be allowed (invalid customer)
+
+        System.out.println("\nOrder Results:");
+        System.out.println(o1.displayOrder());
+        System.out.println(o2.displayOrder());
+        System.out.println(o3.displayOrder());
+        System.out.println(o4.displayOrder());
+        System.out.println(o5.displayOrder());
+        System.out.println(o6.displayOrder());
+        System.out.println(o7.displayOrder());
+        System.out.println(o8.displayOrder());
+
+        System.out.println("\nTotal orders created: " + Order.getTotalOrders());
+
+        // Find the largest order
+        Order largest = o1;
+        if (o2.getTotalAmount() > largest.getTotalAmount()) largest = o2;
+        if (o3.getTotalAmount() > largest.getTotalAmount()) largest = o3;
+        if (o4.getTotalAmount() > largest.getTotalAmount()) largest = o4;
+        if (o5.getTotalAmount() > largest.getTotalAmount()) largest = o5;
+        if (o6.getTotalAmount() > largest.getTotalAmount()) largest = o6;
+        if (o7.getTotalAmount() > largest.getTotalAmount()) largest = o7;
+        if (o8.getTotalAmount() > largest.getTotalAmount()) largest = o8;
+
+        System.out.println("Largest order: " + largest.getCustomerName() + " ($" +
+                String.format("%.2f", largest.getTotalAmount()) + ")");
+    }
+
+    // Helper method to add a single item to an order and handle exceptions
+    private static void addItemToOrder(Order order, String item, double price) {
+        try {
+            order.addItem(item, price);
+            System.out.println("Item '" + item + "' added successfully");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error adding item '" + item + "': " + e.getMessage());
+        }
+    }
+
+    // Helper method to add multiple items to an order and handle exceptions
+    private static void addMultipleItemsToOrder(Order order, String[] items, double... prices) {
+        try {
+            order.addMultipleItems(items, prices);
+            System.out.println("Items added: " + String.join(", ", items));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error adding items: " + e.getMessage());
+        }
     }
 }
