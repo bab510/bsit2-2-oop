@@ -1,40 +1,27 @@
-import java.util.*;
-
+// Main.java
 public class Main {
     public static void main(String[] args) {
-        PostManager postManager = new PostManager();
+        // Create different types of employees
+        Manager manager = new Manager("Alice Smith", 2001, 80000, "Engineering", 15000, 8);
+        Developer developer = new Developer("Bob Johnson", 2002, 70000, "Engineering", "Java", 5);
+        Intern intern = new Intern("Charlie Brown", 2003, 30000, "Engineering", "Tech University", true);
 
-        // Sample data
-        String postTitle = "Java Programming Tips";
-        int[] interactions = {150, 75, 25}; // likes, comments, shares
-        String[] hashtags = {"#java", "#coding", "#programming", "#java", "#tips"};
-        String[] authors = {"Alice", "Bob", "Alice", "Charlie", "Bob"};
 
-        // Calculate engagement score
-        int engagementScore = postManager.calculateEngagement(interactions);
-        String category = postManager.getCategoryRating(engagementScore);
 
-        // Display post stats
-        System.out.println("╔═══════════════════════════ Social Media Post Manager ═════════════════════════════╗");
-        postManager.displayPostStats(postTitle, engagementScore, category);
+        manager.displayInfo();
+        manager.work();
+        System.out.println("Monthly Salary: $" + manager.calculateSalary());
 
-        // Manage hashtags
-        ArrayList<String> uniqueHashtags = postManager.manageHashtags(hashtags);
-        System.out.println("\nUnique Hashtags: " + uniqueHashtags);
+        System.out.println("\n----------------------------------");
 
-        // Sample post engagement data
-        HashMap<String, Integer> postEngagement = new HashMap<>();
-        postEngagement.put(postTitle, engagementScore);
-        postEngagement.put("Advanced Java Tutorial", 600);
-        postEngagement.put("Spring Boot Guide", 700);
+        developer.displayInfo();
+        developer.work();
+        System.out.println("Monthly Salary: $" + developer.calculateSalary());
 
-        // Find trending posts
-        ArrayList<String> posts = new ArrayList<>(postEngagement.keySet());
-        LinkedList<String> trendingPosts = postManager.findTrendingPosts(posts, postEngagement);
-        System.out.println("Trending Posts: " + trendingPosts);
+        System.out.println("\n----------------------------------");
 
-        // Get unique authors
-        HashSet<String> uniqueAuthors = postManager.getUniqueAuthors(authors);
-        System.out.println("Unique Authors: " + uniqueAuthors);
+        intern.displayInfo();
+        intern.work();
+        System.out.println("Monthly Salary: $" + intern.calculateSalary());
     }
 }
