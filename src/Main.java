@@ -1,40 +1,32 @@
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
-        PostManager postManager = new PostManager();
+        PetService service = new PetService();
 
-        // Sample data
-        String postTitle = "Java Programming Tips";
-        int[] interactions = {150, 75, 25}; // likes, comments, shares
-        String[] hashtags = {"#java", "#coding", "#programming", "#java", "#tips"};
-        String[] authors = {"Alice", "Bob", "Alice", "Charlie", "Bob"};
+        System.out.println("Basic checkup: $" + service.calculateFee());
+        System.out.println("Checkup with vaccination: $" + service.calculateFee(true));
+        System.out.println("Full service: $" + service.calculateFee(true, true));
+        System.out.println("Emergency: $" + service.calculateFee("accident"));
 
-        // Calculate engagement score
-        int engagementScore = postManager.calculateEngagement(interactions);
-        String category = postManager.getCategoryRating(engagementScore);
+        System.out.println("\nWelcome to the Pet Clinic!");
+        System.out.println("==========================");
 
-        // Display post stats
-        System.out.println("╔═══════════════════════════ Social Media Post Manager ═════════════════════════════╗");
-        postManager.displayPostStats(postTitle, engagementScore, category);
+        Pet dog = new Dog("Buddy", 3);
+        Pet cat = new Cat("Whiskers", 2);
+        Pet bird = new Bird("Tweety", 1);
 
-        // Manage hashtags
-        ArrayList<String> uniqueHashtags = postManager.manageHashtags(hashtags);
-        System.out.println("\nUnique Hashtags: " + uniqueHashtags);
+        dog.displayInfo();
+        dog.makeSound();
 
-        // Sample post engagement data
-        HashMap<String, Integer> postEngagement = new HashMap<>();
-        postEngagement.put(postTitle, engagementScore);
-        postEngagement.put("Advanced Java Tutorial", 600);
-        postEngagement.put("Spring Boot Guide", 700);
+        cat.displayInfo();
+        cat.makeSound();
 
-        // Find trending posts
-        ArrayList<String> posts = new ArrayList<>(postEngagement.keySet());
-        LinkedList<String> trendingPosts = postManager.findTrendingPosts(posts, postEngagement);
-        System.out.println("Trending Posts: " + trendingPosts);
+        bird.displayInfo();
+        bird.makeSound();
 
-        // Get unique authors
-        HashSet<String> uniqueAuthors = postManager.getUniqueAuthors(authors);
-        System.out.println("Unique Authors: " + uniqueAuthors);
+        System.out.println("\nTraining Session Started!");
+        System.out.println("==========================");
+
+        ((Trainable) dog).performTrick();
+        ((Trainable) bird).performTrick();
     }
 }
