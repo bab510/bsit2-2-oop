@@ -1,40 +1,39 @@
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
-        PostManager postManager = new PostManager();
+        System.out.println("\n=== Library Management System ===");
 
-        // Sample data
-        String postTitle = "Java Programming Tips";
-        int[] interactions = {150, 75, 25}; // likes, comments, shares
-        String[] hashtags = {"#java", "#coding", "#programming", "#java", "#tips"};
-        String[] authors = {"Alice", "Bob", "Alice", "Charlie", "Bob"};
+        Book book1 = new Book("Java Programming", "John Smith", "1234567890", 2020);
+        Book book2 = new Book("Data Structures", "Jane Doe", "9876543210", 2019);
+        Book book3 = new Book("Web Development", "Mike Johnson", "5555666677", 2021);
 
-        // Calculate engagement score
-        int engagementScore = postManager.calculateEngagement(interactions);
-        String category = postManager.getCategoryRating(engagementScore);
+        System.out.println("\nAdding books to library...");
+        Library library = new Library();
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
 
-        // Display post stats
-        System.out.println("╔═══════════════════════════ Social Media Post Manager ═════════════════════════════╗");
-        postManager.displayPostStats(postTitle, engagementScore, category);
+        library.displayAllBooks();
 
-        // Manage hashtags
-        ArrayList<String> uniqueHashtags = postManager.manageHashtags(hashtags);
-        System.out.println("\nUnique Hashtags: " + uniqueHashtags);
+        library.borrowBook("1234567890");
+        library.borrowBook("1234567890");
 
-        // Sample post engagement data
-        HashMap<String, Integer> postEngagement = new HashMap<>();
-        postEngagement.put(postTitle, engagementScore);
-        postEngagement.put("Advanced Java Tutorial", 600);
-        postEngagement.put("Spring Boot Guide", 700);
+        library.displayAvailableBooks();
 
-        // Find trending posts
-        ArrayList<String> posts = new ArrayList<>(postEngagement.keySet());
-        LinkedList<String> trendingPosts = postManager.findTrendingPosts(posts, postEngagement);
-        System.out.println("Trending Posts: " + trendingPosts);
+        library.returnBook("1234567890");
 
-        // Get unique authors
-        HashSet<String> uniqueAuthors = postManager.getUniqueAuthors(authors);
-        System.out.println("Unique Authors: " + uniqueAuthors);
+
+        System.out.println("\nTesting validation...");
+        try {
+            Book invalidBook = new Book("Invalid Book", "Test Author", "123", 2030);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            Book invalidBook = new Book("Invalid Book", "Test Author", "1230102101", 2030);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 }
