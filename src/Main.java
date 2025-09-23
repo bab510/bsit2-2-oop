@@ -1,40 +1,90 @@
-import java.util.*;
+abstract class Media {
+    protected String title;
+    protected String itemId;
+    protected boolean isAvailable;
 
-public class Main {
-    public static void main(String[] args) {
-        PostManager postManager = new PostManager();
+    public Media(String title, String itemId) {
+        this.title = title;
+        this.itemId = itemId;
+        this.isAvailable = true;
+    }
 
-        // Sample data
-        String postTitle = "Java Programming Tips";
-        int[] interactions = {150, 75, 25}; // likes, comments, shares
-        String[] hashtags = {"#java", "#coding", "#programming", "#java", "#tips"};
-        String[] authors = {"Alice", "Bob", "Alice", "Charlie", "Bob"};
+    public String getTitle() {
+        return title;
+    }
 
-        // Calculate engagement score
-        int engagementScore = postManager.calculateEngagement(interactions);
-        String category = postManager.getCategoryRating(engagementScore);
+    public String getItemId() {
+        return itemId;
+    }
 
-        // Display post stats
-        System.out.println("╔═══════════════════════════ Social Media Post Manager ═════════════════════════════╗");
-        postManager.displayPostStats(postTitle, engagementScore, category);
+    public boolean isAvailable() {
+        return isAvailable;
+    }
 
-        // Manage hashtags
-        ArrayList<String> uniqueHashtags = postManager.manageHashtags(hashtags);
-        System.out.println("\nUnique Hashtags: " + uniqueHashtags);
+    public void borrowItem() {
+        isAvailable = false;
+        System.out.println(title + " has been borrowed");
+    }
 
-        // Sample post engagement data
-        HashMap<String, Integer> postEngagement = new HashMap<>();
-        postEngagement.put(postTitle, engagementScore);
-        postEngagement.put("Advanced Java Tutorial", 600);
-        postEngagement.put("Spring Boot Guide", 700);
+    public void returnItem() {
+        isAvailable = true;
+        System.out.println(title + " has been returned");
+    }
 
-        // Find trending posts
-        ArrayList<String> posts = new ArrayList<>(postEngagement.keySet());
-        LinkedList<String> trendingPosts = postManager.findTrendingPosts(posts, postEngagement);
-        System.out.println("Trending Posts: " + trendingPosts);
+    public abstract String getMediaType();
+    public abstract void displayInfo();
+}
 
-        // Get unique authors
-        HashSet<String> uniqueAuthors = postManager.getUniqueAuthors(authors);
-        System.out.println("Unique Authors: " + uniqueAuthors);
+
+class Book extends Media {
+    private String author;
+
+    public Book(String title, String itemId, String author) {
+        super(title, itemId);
+        this.author = author;
+    }
+
+    public String getMediaType() {
+        return "Book";
+    }
+
+    public void displayInfo() {
+        System.out.println("Book: \"" + title + "\" by " + author + " (ID: " + itemId + ")");
+    }
+}
+
+
+class DVD extends Media {
+    private String director;
+
+    public DVD(String title, String itemId, String director) {
+        super(title, itemId);
+        this.director = director;
+    }
+
+    public String getMediaType() {
+        return "DVD";
+    }
+
+    public void displayInfo() {
+        System.out.println("DVD: \"" + title + "\" directed by " + director + " (ID: " + itemId + ")");
+    }
+}
+
+
+class Magazine extends Media {
+    private int issueNumber;
+
+    public Magazine(String title, String itemId, int issueNumber) {
+        super(title, itemId);
+        this.issueNumber = issueNumber;
+    }
+
+    public String getMediaType() {
+        return "Magazine";
+    }
+
+    public void displayInfo() {
+        System.out.println("Magazine: \"" + title + "\" Issue #" + issueNumber + " (ID: " + itemId + ")");
     }
 }
